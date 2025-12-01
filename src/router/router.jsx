@@ -4,28 +4,47 @@ import Home from "../Components/Home/Home";
 import LogIn from "../Pages/Login/LogIn";
 import Bills from "../Pages/Bills/Bills";
 import SignUp from "../Pages/SignUp/SignUp";
+import PrivitePages from "../Context/PrivitePages";
+import MyPyBills from "../Pages/MyPyBills/MyPyBills";
+import Profile from "../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
-    {
-        path: '/',
-        Component: HomeLayout,
-        children: [
-            {
-                index: true,
-                Component: Home
-            },
-            {
-                path: '/login',
-                Component: LogIn
-            },
-            {
-                path: 'signUp',
-                Component: SignUp
-            },
-            {
-                path: '/bills',
-                Component: Bills
-            }
-        ]
-    }
+  {
+    path: "/",
+    Component: HomeLayout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "/login",
+        Component: LogIn,
+      },
+      {
+        path: "signUp",
+        Component: SignUp,
+      },
+      {
+        path: "/bills",
+        Component: Bills,
+      },
+      {
+        path: "/myPyBills",
+        element: (
+          <PrivitePages>
+            <MyPyBills />
+          </PrivitePages>
+        ),
+      },
+      {
+        path: "userProfile",
+        element: (
+          <PrivitePages>
+            <Profile />
+          </PrivitePages>
+        ),
+      },
+    ],
+  },
 ]);

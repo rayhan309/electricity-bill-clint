@@ -1,9 +1,45 @@
-import { Link } from "react-router";
+import { use } from "react";
+import { Link, useNavigate } from "react-router";
+import { toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
 
 // SignUp.jsx
 const SignUp = () => {
+  const { createUser } = use(AuthContext);
+    const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const form = e.target;
+    // const name = form.name.value;
+    const email = form.email.value;
+    const password1 = form.password1.value;
+    const password2 = form.password2.value;
+
+    if (password1 !== password2) {
+      toast.error("Please Tow Sem Password!");
+      return;
+    }
+    // sigup
+    createUser(email, password1)
+      .then((res) => {
+        if (res?.user) {
+           e.target.reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your account has been created!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate('/')
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -20,8 +56,10 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
+                name="name"
                 placeholder="Enter your name"
                 className="input input-bordered w-full"
+                required
               />
             </div>
 
@@ -32,8 +70,10 @@ const SignUp = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 className="input input-bordered w-full"
+                required
               />
             </div>
 
@@ -44,8 +84,10 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
+                name="password1"
                 placeholder="Create a password"
                 className="input input-bordered w-full"
+                required
               />
             </div>
 
@@ -56,8 +98,10 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
+                name="password2"
                 placeholder="Repeat your password"
                 className="input input-bordered w-full"
+                required
               />
             </div>
 
@@ -112,6 +156,7 @@ const SignUp = () => {
           </p>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

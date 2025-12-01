@@ -1,8 +1,37 @@
-import { Link } from "react-router";
+import { use } from "react";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../../Context/AuthContext";
+import Swal from "sweetalert2";
+import { toast, ToastContainer } from "react-toastify";
 
 const LogIn = () => {
+  const { signinUser } = use(AuthContext);
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    // sinin
+    signinUser(email, password)
+      .then((res) => {
+        if (res?.user) {
+          e.target.reset();
+          navigate('/')
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your account is logn in successflly!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
@@ -19,8 +48,10 @@ const LogIn = () => {
               </label>
               <input
                 type="email"
+                name="email"
                 placeholder="you@example.com"
                 className="input input-bordered w-full"
+                required
               />
             </div>
 
@@ -31,8 +62,10 @@ const LogIn = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="Your password"
                 className="input input-bordered w-full"
+                required
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
@@ -103,6 +136,7 @@ const LogIn = () => {
           </p>
         </div>
       </div>
+         <ToastContainer />
     </div>
   );
 };
