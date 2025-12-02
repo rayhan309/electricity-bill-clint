@@ -101,7 +101,7 @@ const Navber = () => {
       {/* Mobile Dropdown */}
       {open && (
         <div className="lg:hidden backdrop-blur-xl bg-white/10 border-t border-white/20 p-5">
-          <ul className="flex flex-col gap-4 text-white">{links}</ul>
+          <ul className="flex flex-col gap-4 text-orange-300">{links}</ul>
 
           {user ? (
             <button onClick={handleLogOut} className="premium-btn mt-4 w-full">

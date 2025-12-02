@@ -7,6 +7,13 @@
 body {
   font-family: "Inter", sans-serif;
 }
+body {
+  @apply bg-gradient-to-br from-[#1f1c2c] to-[#928dab]
+}
+
+.footer-link {
+  @apply hover:text-orange-400 hover:underline cursor-pointer transition
+}
 
 a.active {
   @apply text-[#fbbf24] border-b border-[#fbbf24];
@@ -55,7 +62,8 @@ a.active {
   border-radius: 10px;
   background: linear-gradient(to right, #fbbf24, #fb923c);
   font-weight: 600;
-  color: black;
+  cursor: pointer;
+  color: white;
   box-shadow: 0px 0px 15px #fbbf2460;
   transition: transform 0.3s ease;
 }

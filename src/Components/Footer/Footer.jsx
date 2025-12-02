@@ -1,11 +1,11 @@
 const Footer = () => {
   return (
-    <footer className="relative bg-gray-900 text-white pb-5 pt-10 px-8">
-      {/* Gradient top border */}
+    <footer className="relative bg-gray-900/80 text-white pb-5 pt-10 px-8">
+      {/* t bor*/}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-amber-500"></div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-        {/* Logo + Description */}
+      <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        {/* Log Descr*/}
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-orange-500/40">
@@ -26,10 +26,10 @@ const Footer = () => {
             Links
           </h3>
           <ul className="space-y-2 text-gray-300 text-sm">
-            <li className="hover:text-orange-400 transition">Dashboard</li>
-            <li className="hover:text-orange-400 transition">My Bills</li>
-            <li className="hover:text-orange-400 transition">Payments</li>
-            <li className="hover:text-orange-400 transition">Settings</li>
+            <li className="footer-link">Dashboard</li>
+            <li className="footer-link">My Bills</li>
+            <li className="footer-link">Payments</li>
+            <li className="footer-link">Settings</li>
           </ul>
         </div>
 
@@ -39,10 +39,10 @@ const Footer = () => {
             Support
           </h3>
           <ul className="space-y-2 text-gray-300 text-sm">
-            <li className="hover:text-orange-400 transition">Help Center</li>
-            <li className="hover:text-orange-400 transition">Contact Us</li>
-            <li className="hover:text-orange-400 transition">FAQs</li>
-            <li className="hover:text-orange-400 transition">Privacy Policy</li>
+            <li className="footer-link">Help Center</li>
+            <li className="footer-link">Contact Us</li>
+            <li className="footer-link">FAQs</li>
+            <li className="footer-link">Privacy Policy</li>
           </ul>
         </div>
 

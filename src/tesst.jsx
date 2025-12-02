@@ -170,3 +170,20 @@ export default function Banner({ autoplay = true, interval = 5000 }) {
     </div>
   );
 }
+
+
+        //  <button
+        //     onClick={() => window.print()}
+        //     className="px-6 py-2 rounded-full bg-gradient-to-r
+        //     from-fuchsia-500 to-pink-600 text-white shadow-lg hover:scale-105 transition-all"
+        //   >
+        //     Print
+        //   </button>
+
+        //   <button
+        //     onClick={handleDownloadPDF}
+        //     className="px-6 py-2 rounded-full bg-gradient-to-r
+        //     from-emerald-500 to-teal-500 text-white shadow-lg hover:scale-105 transition-all"
+        //   >
+        //     Download PDF
+        //   </button>

@@ -21,7 +21,8 @@ const RecentBill = () => {
     <Loading />
   ) : (
     <>
-    <h2 className="text-3xl font-bold text-center mb-6 mt-10 text-gray-800">
+    <div className="w-full border-b h-2 mt-10 opacity-30 border-purple-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+    <h2 className="text-3xl font-bold text-center mb-6 mt-10 text-white/30">
         Recent Bills
       </h2>
     <div className="grid grid-cols-1 w-11/12 mx-auto md:grid-cols-2 lg:grid-cols-3 mb-16 gap-10">

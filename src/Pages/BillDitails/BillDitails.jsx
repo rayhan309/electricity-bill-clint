@@ -2,9 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import Footer from "../../Components/Footer/Footer";
+import { CircleChevronLeft } from "lucide-react";
 
 const BillDitails = () => {
   const { id } = useParams();
@@ -12,25 +11,12 @@ const BillDitails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     axios(`http://localhost:3000/category/${id}`).then((res) => {
       setBill(res.data);
       setLoading(false);
     });
   }, [id]);
-
-  const handleDownloadPDF = async () => {
-    const element = document.getElementById("bill-area");
-    const canvas = await html2canvas(element);
-    const img = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
-
-    const width = pdf.internal.pageSize.getWidth();
-    const height = (canvas.height * width) / canvas.width;
-
-    pdf.addImage(img, "PNG", 0, 0, width, height);
-    pdf.save(`${bill.title}-Bill.pdf`);
-  };
+  
 
   if (loading) {
     return (
@@ -55,22 +41,22 @@ const BillDitails = () => {
     description,
   } = bill;
 
+  const handlePyBillBTN = () => {
+    alert("Payment Successful!");
+  };
+
   return (
     <>
-      <div className="py-20 px-6 relative overflow-hidden bg-black text-gray-200">
-        {/* 🔮 Animated Gradient Orbs */}
-        <div className="orb orb1"></div>
-        <div className="orb orb2"></div>
-        <div className="orb orb3"></div>
-
+      <div className="py-20 px-6 relative overflow-hidden">
         {/* Back Button */}
+  
         <Link
-          to='/'
-          className="inline-block mb-6 px-6 py-2 rounded-full  mt-6
-        bg-gradient-to-r from-indigo-500 to-purple-600 
-        text-white shadow-xl hover:scale-105 transition-all relative z-10"
+          to="/"
+          className="mb-6 px-6 py-2 rounded-full mt-6
+          shadow-xl premium-btn flex items-center gap-3 w-30"
         >
-          ← Back
+          <CircleChevronLeft />
+          <span>Back</span>
         </Link>
 
         {/* Main Card */}
@@ -80,12 +66,12 @@ const BillDitails = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="
-        w-11/12 mx-auto grid md:grid-cols-2 gap-8 
-        bg-[#0d0f18]/80 backdrop-blur-xl 
-        border border-purple-500/20 
-        rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)] 
-        p-6 relative z-10
-        "
+            w-11/12 mx-auto grid md:grid-cols-2 gap-8
+            backdrop-blur-xl
+            border border-purple-500/20
+            rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)]
+            p-6 relative z-10
+          "
         >
           {/* Image */}
           <motion.img
@@ -134,28 +120,15 @@ const BillDitails = () => {
               </div>
 
               <p className="text-gray-400 leading-relaxed">{description}</p>
+              <button
+                onClick={handlePyBillBTN}
+                className={`premium-btn  w-full`}
+              >
+                Pay Bill
+              </button>
             </div>
           </div>
         </motion.div>
-
-        {/* Buttons */}
-        <div className="flex gap-4 mt-10 justify-center relative z-10">
-          <button
-            onClick={() => window.print()}
-            className="px-6 py-2 rounded-full bg-gradient-to-r 
-          from-fuchsia-500 to-pink-600 text-white shadow-lg hover:scale-105 transition-all"
-          >
-            Print
-          </button>
-
-          <button
-            onClick={handleDownloadPDF}
-            className="px-6 py-2 rounded-full bg-gradient-to-r 
-          from-emerald-500 to-teal-500 text-white shadow-lg hover:scale-105 transition-all"
-          >
-            Download PDF
-          </button>
-        </div>
       </div>
       <Footer />
     </>

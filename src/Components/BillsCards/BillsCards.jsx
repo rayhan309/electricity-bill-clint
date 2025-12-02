@@ -96,8 +96,8 @@ const BillsCards = () => {
 
   return (
     <div className="py-10 w-11/12 mx-auto">
-      <div className="w-full border-b h-2 border-purple-500 border-dashed shadow-lg shadow-amber-500/40"></div>
-      <h2 className="text-3xl font-bold text-center mt-6 mb-10 text-gray-800">
+      <div className="w-full border-b h-2 mt-10 opacity-30 border-purple-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+      <h2 className="text-3xl font-bold text-center text-white/30 mt-6 mb-10">
         Utility Categories
       </h2>
 
