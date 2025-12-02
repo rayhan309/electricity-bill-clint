@@ -1,13 +1,130 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mooli&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mooli&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui" {
   themes: light --default;
- }
+}
 
 body {
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 a.active {
-    @apply text-blue-400 border-b border-blue-400
+  @apply text-[#fbbf24] border-b border-[#fbbf24];
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradientMove {
+  animation: gradientMove 10s ease infinite;
+}
+
+.premium-link {
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s ease;
+}
+.premium-link:hover {
+  color: #fbbf24;
+}
+.premium-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(to right, #fbbf24, #fb923c);
+  transition: width 0.3s ease;
+}
+.premium-link:hover::after {
+  width: 100%;
+}
+
+.premium-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #fbbf24, #fb923c);
+  font-weight: 600;
+  color: black;
+  box-shadow: 0px 0px 15px #fbbf2460;
+  transition: transform 0.3s ease;
+}
+.premium-btn:hover {
+  transform: scale(1.05);
+}
+
+
+.orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: float 12s infinite ease-in-out alternate;
+}
+
+.orb1 {
+  top: -100px;
+  left: -60px;
+  background: radial-gradient(circle, #7f00ff, #e100ff);
+  animation-duration: 14s;
+}
+
+.orb2 {
+  bottom: -80px;
+  right: -60px;
+  background: radial-gradient(circle, #00c6ff, #0072ff);
+  animation-duration: 12s;
+}
+
+.orb3 {
+  top: 40%;
+  left: 50%;
+  background: radial-gradient(circle, #5eff8c, #0affd1);
+  animation-duration: 16s;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) translateX(0px); }
+  100% { transform: translateY(40px) translateX(40px); }
+}
+
+
+/* Page wrapper (stack layout) */
+.page-wrapper {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 20px;
+}
+
+/* Each section */
+.section {
+  padding: 24px;
+  border-radius: 18px;
+}
+
+/* Title styling */
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.subtitle {
+  opacity: 0.6;
+  font-size: 14px;
 }

@@ -3,10 +3,15 @@ import { auth } from "../Firebase/Firebase.config";
 import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
+
+const goggleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -18,11 +23,26 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  // updateProfile
+  const updateUserProfile = (name, photo) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+
   // Signin user
   const signinUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
+
+  // goglle sign in
+  const signinWithGoggle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, goggleProvider)
+  }
 
   // sign out user
   const signOutUser = () => {
@@ -41,6 +61,8 @@ const AuthProvider = ({ children }) => {
 
   const userInfo = {
     createUser,
+    updateUserProfile,
+    signinWithGoggle,
     signinUser,
     signOutUser,
     user,

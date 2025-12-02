@@ -7,6 +7,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import PrivitePages from "../Context/PrivitePages";
 import MyPyBills from "../Pages/MyPyBills/MyPyBills";
 import Profile from "../Pages/Profile/Profile";
+import BillDitails from "../Pages/BillDitails/BillDitails";
 
 export const router = createBrowserRouter([
   {
@@ -38,12 +39,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "userProfile",
+        path: "/userProfile",
         element: (
           <PrivitePages>
             <Profile />
           </PrivitePages>
         ),
+      },
+      {
+        path: "/billDitails/:id",
+        element: <BillDitails />,
       },
     ],
   },

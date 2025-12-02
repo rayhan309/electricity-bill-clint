@@ -2,103 +2,120 @@ import { use } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-import logo from '../../assets/logo.png'
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const Navber = () => {
   const { user, signOutUser } = use(AuthContext);
+  const [open, setOpen] = useState(false);
 
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Home</NavLink>
+        <NavLink to={"/"} className="premium-link">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/bills"}>Bills</NavLink>
+        <NavLink to={"/bills"} className="premium-link">
+          Bills
+        </NavLink>
       </li>
+
       {user && (
         <>
-        <li>
-          <NavLink to={"/myPyBills"}>My Pay Bills</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/userProfile'}>Profile Avatar</NavLink>
-        </li>
+          <li>
+            <NavLink to={"/myPyBills"} className="premium-link">
+              My Pay Bills
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={"/userProfile"} className="premium-link">
+              Profile Avatar
+            </NavLink>
+          </li>
         </>
       )}
     </>
   );
 
-  // lognout
+  // LogOut
   const handleLogOut = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You will be logged out!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#f59e0b",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, logOut it!",
+      confirmButtonText: "Yes, Logout!",
     }).then((result) => {
       if (result.isConfirmed) {
         signOutUser().then(() => {
-          Swal.fire({
-            title: "LogOut!",
-            text: "Your account has been logOuted.",
-            icon: "success",
-          });
+          Swal.fire("Logged Out!", "You have been logged out.", "success");
         });
       }
     });
   };
 
   return (
-    <div className="navbar px-10 bg-gray-200 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+    <header className="fixed top-0 left-0 w-full backdrop-blur-xl bg-white/10 border-b border-white/20 shadow-lg z-50">
+      <nav className="w-11/12 mx-auto px-6 py-3 flex justify-between items-center">
+        {/* LOGO */}
+        <div className="flex items-center gap-3">
+          <div
+            className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-500 
+            flex items-center justify-center shadow-lg shadow-orange-500/40"
           >
-            {links}
-          </ul>
+            <span className="text-2xl font-bold">⚡</span>
+          </div>
+          <h2
+            className="text-2xl font-bold tracking-wide bg-gradient-to-r from-yellow-400 to-orange-500 
+            bg-clip-text text-transparent"
+          >
+            SmartBills
+          </h2>
         </div>
-       <div className="flex items-center gap-4">
-         <img className="w-12 rounded-full cursor-pointer" title="MyBill Manager" src={logo} alt="logo" />
-        <h3 className="text-xl font-semibold">MyBill Manager</h3>
-       </div>
-      </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        {user ? (
-          <button onClick={handleLogOut} className="btn">
-            LogOut
-          </button>
-        ) : (
-          <Link to={"/login"} className="btn">
-            LogIn
-          </Link>
-        )}
-      </div>
-    </div>
+
+        {/* Desktop Menu */}
+        <ul className="hidden lg:flex items-center gap-10 text-orange-300">{links}</ul>
+
+        {/* Desktop Button */}
+        <div className="hidden lg:block">
+          {user ? (
+            <button onClick={handleLogOut} className="premium-btn">
+              Logout
+            </button>
+          ) : (
+            <Link to={"/login"} className="premium-btn">
+              Login
+            </Link>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button className="lg:hidden text-orange-300 cursor-pointer" onClick={() => setOpen(!open)}>
+          {open ? <X size={32} /> : <Menu size={32} />}
+        </button>
+      </nav>
+      {/* Mobile Dropdown */}
+      {open && (
+        <div className="lg:hidden backdrop-blur-xl bg-white/10 border-t border-white/20 p-5">
+          <ul className="flex flex-col gap-4 text-white">{links}</ul>
+
+          {user ? (
+            <button onClick={handleLogOut} className="premium-btn mt-4 w-full">
+              Logout
+            </button>
+          ) : (
+            <Link to={"/login"} className="premium-btn mt-4 w-full">
+              Login
+            </Link>
+          )}
+        </div>
+      )}
+      
+    </header>
   );
 };
 

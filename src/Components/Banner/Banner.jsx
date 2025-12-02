@@ -17,7 +17,7 @@ export default function Banner() {
   }, []);
 
   return (
-    <div className="mt-14 w-11/12 mx-auto">
+    <div className="pt-24 w-11/12 mx-auto">
       {slides.length > 0 && (
         <Swiper
           modules={[Autoplay, Pagination, Navigation, EffectFade]}
