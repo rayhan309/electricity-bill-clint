@@ -108,9 +108,11 @@ const Navber = () => {
               Logout
             </button>
           ) : (
-            <Link to={"/login"} className="premium-btn mt-4 w-full">
+            <button className="premium-btn mt-3 w-full">
+              <Link to={"/login"}>
               Login
             </Link>
+            </button>
           )}
         </div>
       )}

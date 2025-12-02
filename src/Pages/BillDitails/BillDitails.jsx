@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Footer from "../../Components/Footer/Footer";
 import { CircleChevronLeft } from "lucide-react";
+import Loading from "../../Components/Laoding/Laoding";
 
 const BillDitails = () => {
   const { id } = useParams();
-  const [bill, setBill] = useState(null);
+  const [bill, setBill] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios(`http://localhost:3000/category/${id}`).then((res) => {
@@ -20,9 +22,7 @@ const BillDitails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-black">
-        <div className="w-96 h-64 bg-gray-800/50 rounded-2xl shadow-lg animate-pulse"></div>
-      </div>
+     <Loading />
     );
   }
 
@@ -42,7 +42,7 @@ const BillDitails = () => {
   } = bill;
 
   const handlePyBillBTN = () => {
-    alert("Payment Successful!");
+    navigate('/pyBill', { state: { amount: amount } })
   };
 
   return (
@@ -69,7 +69,7 @@ const BillDitails = () => {
             w-11/12 mx-auto grid md:grid-cols-2 gap-8
             backdrop-blur-xl
             border border-purple-500/20
-            rounded-2xl shadow-[0_0_30px_rgba(138,43,226,0.3)]
+            rounded-2xl shadow-[0_0_30px_rgba(191,191,191,1)]
             p-6 relative z-10
           "
         >
@@ -119,13 +119,13 @@ const BillDitails = () => {
                 </p>
               </div>
 
-              <p className="text-gray-400 leading-relaxed">{description}</p>
-              <button
+              <p className="text-gray-400 pb-4 leading-relaxed">{description}</p>
+              <Link
                 onClick={handlePyBillBTN}
                 className={`premium-btn  w-full`}
               >
                 Pay Bill
-              </button>
+              </Link>
             </div>
           </div>
         </motion.div>

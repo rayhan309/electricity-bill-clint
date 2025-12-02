@@ -1,10 +1,11 @@
 import { use } from 'react';
 import { AuthContext } from './AuthContext';
-import { Navigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 import Loading from '../Components/Laoding/Laoding';
 
 const PrivitePages = ({children}) => {
     const {user, loading} = use(AuthContext);
+   const location = useLocation();
 
     if(loading) {
         return <Loading />
@@ -14,7 +15,7 @@ const PrivitePages = ({children}) => {
         return children;
     }
 
-    return <Navigate to={'/signUp'}></Navigate>
+    return <Navigate state={location?.pathname} to={'/login'}></Navigate>
 };
 
 export default PrivitePages;

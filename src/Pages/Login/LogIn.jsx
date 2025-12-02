@@ -1,5 +1,5 @@
 import { use } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
@@ -8,6 +8,8 @@ import { Lock, Mail } from "lucide-react";
 const LogIn = () => {
   const { signinUser, signinWithGoggle } = use(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(location)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +43,7 @@ const LogIn = () => {
     signinWithGoggle()
       .then((res) => {
         if(res.user){
-          navigate('/')
+          navigate(location?.state)
         };
       })
       .catch((error) => {

@@ -49,7 +49,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/billDitails/:id",
-        element: <BillDitails />,
+        element: (
+          <PrivitePages>
+            <BillDitails />
+          </PrivitePages>
+        ),
       },
       {
         path: "pyBill",
