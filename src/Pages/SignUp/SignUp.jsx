@@ -6,9 +6,10 @@ import Swal from "sweetalert2";
 import { User, Mail, Lock, Image as ImageIcon } from "lucide-react";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile } = use(AuthContext);
+  const { createUser, updateUserProfile, signinWithGoggle } = use(AuthContext);
   const navigate = useNavigate();
 
+  // sign Up with email & password
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -18,6 +19,18 @@ const SignUp = () => {
     const email = form.email.value;
     const password1 = form.password1.value;
     const password2 = form.password2.value;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    if (!emailRegex.test(email)) {
+      toast.error("Please valide email");
+      return;
+    }
+
+    if(!passwordRegex.test(password1)) {
+      toast.error("Please 8 charecter & 1 lettur, number");
+      return;
+    }
 
     if (password1 !== password2) {
       toast.error("Password doesn't match!");
@@ -48,10 +61,23 @@ const SignUp = () => {
 
           navigate("/");
         }
-        console.log(res.user)
+        // console.log(res.user);
       })
       .catch((error) => toast.error(error.message));
   };
+
+  // goggleLoginHandle
+  const goggleLoginHandle = () => {
+    signinWithGoggle()
+    .then((res) => {
+        if(res.user){
+          navigate('/')
+        };
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
 
   return (
     <div
@@ -168,6 +194,7 @@ const SignUp = () => {
 
           {/* Google Login */}
           <button
+          onClick={goggleLoginHandle}
             type="button"
             className="w-full py-3 rounded-xl bg-white/20 border border-white/30
             text-white flex items-center justify-center gap-3

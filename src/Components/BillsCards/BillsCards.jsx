@@ -123,7 +123,7 @@ const BillsCards = () => {
             </p>
 
             <div className="mt-4">
-              <p className="text-lg font-semibold">৳ {item.amount}</p>
+              <p className="text-lg font-semibold">$ {item.amount}</p>
               <p className="text-sm mt-1">{item.month}</p>
             </div>
           </div>

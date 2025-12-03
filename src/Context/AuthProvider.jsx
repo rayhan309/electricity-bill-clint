@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -50,6 +51,12 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  // reset password
+  const resetPassword = (email) => {
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email)
+  };
+
   // current user
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -65,6 +72,7 @@ const AuthProvider = ({ children }) => {
     signinWithGoggle,
     signinUser,
     signOutUser,
+    resetPassword,
     user,
     loading,
   };

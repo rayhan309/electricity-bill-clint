@@ -3,13 +3,30 @@ import { AuthContext } from "../../Context/AuthContext";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import Footer from "../../Components/Footer/Footer";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { CircleChevronLeft } from "lucide-react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const PyBills = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
-  console.log(location)
+  const navigate = useNavigate();
+  
+  /**
+   * step 1. location seach er maje amar query params thka
+   * step 2. const query = new URLSearchParams(location?.search) call die vitore 
+   * step 3. qurry dheke get(name)
+   * simple 3 steps
+   * **/
+
+  const query = new URLSearchParams(location?.search);
+  const amount = query.get("ammount")
+  const id = query.get("id")
+  const title = query.get("title")
+  console.log({amount, id, title})
+
+  // console.log(location.search.ammount);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,22 +38,48 @@ const PyBills = () => {
     const phone = e.target.phone.value;
     const address = e.target.address.value;
     const additionalInfo = e.target.additionalInfo.value;
-    console.log({name, billId, amount, date, phone, address, additionalInfo})
+    // console.log({ name, billId, amount, date, phone, address, additionalInfo });
+
+    axios
+      .post("http://localhost:3000/pyBills", {
+        billId,
+        name,
+        email: user?.email,
+        amount,
+        date,
+        phone,
+        address,
+        description: additionalInfo,
+      })
+      .then((res) => {
+        if (res?.data?.insertedId) {
+          e.target.reset();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your bill has successfully py",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
     <>
-    {/* back mama */}
-    <div className="pt-24 pl-7">
-
+      {/* back mama */}
+      <div className="pt-24 pl-7">
         <Link
-          to="/"
+          onClick={() => navigate(-1)}
           className=" shadow-xl premium-btn flex items-center gap-3 w-30"
         >
           <CircleChevronLeft />
           <span>Back</span>
         </Link>
-    </div>
+      </div>
 
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4 pt-14 pb-20">
         <ToastContainer position="top-right" autoClose={3000} />
@@ -84,17 +127,19 @@ const PyBills = () => {
           </div>
 
           {/* Amount */}
-          <div className="flex flex-col">
+          <div className="flex flex-col relative">
             <label className="text-gray-300 mb-1">Amount</label>
             <input
               type="text"
               name="amount"
-              placeholder="Ammounts"
-              className="w-full pl-3 pr-4 py-3 rounded-xl bg-white/5 
+              value={amount}
+              className="w-full pl-6 pr-4 py-3 rounded-xl bg-white/5 
               border border-white/20 text-white 
               focus:ring-2 focus:ring-yellow-400 
               transition-all outline-none"
+              readOnly
             />
+            <span className="absolute top-10 left-2.5 text-white ">$</span>
           </div>
 
           {/* Date */}
@@ -112,18 +157,18 @@ const PyBills = () => {
             />
           </div>
 
-          {/* billls ids */}
+          {/* billls id */}
           <div className="flex flex-col">
             <label className="text-gray-300 mb-1">Bill ID</label>
             <input
               type="text"
               name="billId"
-              placeholder="1346273534262534...."
+              value={id}
               className="w-full pl-3 pr-4 py-3 rounded-xl bg-white/5 
               border border-white/20 text-white 
               focus:ring-2 focus:ring-yellow-400 
               transition-all outline-none"
-              required
+              readOnly
             />
           </div>
 

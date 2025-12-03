@@ -42,22 +42,22 @@ const BillDitails = () => {
   } = bill;
 
   const handlePyBillBTN = () => {
-    navigate('/pyBill', { state: { amount: amount } })
+    navigate(`/pyBill?ammount=${amount}&id=${_id}&title=${category}`);
   };
 
   return (
     <>
       <div className="py-20 px-6 relative overflow-hidden">
-        {/* Back Button */}
+        {/* Back btn */}
   
-        <Link
-          to="/"
-          className="mb-6 px-6 py-2 rounded-full mt-6
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-10 px-6 py-2 rounded-full mt-6
           shadow-xl premium-btn flex items-center gap-3 w-30"
         >
           <CircleChevronLeft />
           <span>Back</span>
-        </Link>
+        </button>
 
         {/* Main Card */}
         <motion.div
@@ -73,17 +73,17 @@ const BillDitails = () => {
             p-6 relative z-10
           "
         >
-          {/* Image */}
+          {/* emg */}
           <motion.img
             initial={{ scale: 0.93 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
             src={image}
             alt={title}
-            className="rounded-xl shadow-lg w-full object-cover max-h-[420px]"
+            className="rounded-xl shadow-lg h-full w-full object-cover max-h-[420px]"
           />
 
-          {/* Details */}
+          {/* ditils card   */}
           <div className="flex justify-center items-center">
             <div className="space-y-3 md:space-y-5 lg:space-y-7">
               <h1 className="text-4xl font-extrabold text-white">{title}</h1>

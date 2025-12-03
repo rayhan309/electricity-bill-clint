@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
@@ -6,9 +6,10 @@ import { toast, ToastContainer } from "react-toastify";
 import { Lock, Mail } from "lucide-react";
 
 const LogIn = () => {
-  const { signinUser, signinWithGoggle } = use(AuthContext);
+  const { signinUser, signinWithGoggle, resetPassword } = use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const emailRef = useRef();
   // console.log(location)
 
   const handleSubmit = (e) => {
@@ -43,7 +44,10 @@ const LogIn = () => {
     signinWithGoggle()
       .then((res) => {
         if(res.user){
-          navigate(location?.state)
+          if(location?.state) {
+           return navigate(location?.state);
+          };
+          navigate('/');
         };
       })
       .catch((error) => {
@@ -51,6 +55,30 @@ const LogIn = () => {
       });
   };
 
+  // passwordResetHandle
+  const passwordResetHandle = () => {
+    const email = emailRef.current.value;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if(!email) {
+      toast.error("Please type your email");
+      return;
+    };
+
+    if(!emailRegex.test(email)) {
+      toast.error("Please valide email");
+      return;
+    };
+
+    resetPassword(email)
+    .then(() => {
+      toast.success("Please check your email!")
+    })
+    .catch((error) => {
+      toast.error(error.message)
+    })
+    // console.log(email)
+  }
   return (
     <div
       className="min-h-screen flex items-center justify-center 
@@ -77,6 +105,7 @@ const LogIn = () => {
             <input
               type="email"
               name="email"
+              ref={emailRef}
               placeholder="you@example.com"
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 
               border border-white/20 text-white 
@@ -100,7 +129,9 @@ const LogIn = () => {
               required
             />
 
-            <div className="text-right mt-1">
+            <div
+            onClick={passwordResetHandle}
+             className="text-right mt-1">
               <a href="#" className="text-yellow-300 text-sm hover:underline">
                 Forgot Password?
               </a>
