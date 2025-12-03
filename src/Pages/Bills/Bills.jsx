@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import Footer from "../../Components/Footer/Footer";
 import Loading from "../../Components/Laoding/Laoding";
-import { ChevronRight } from "lucide-react";
+import { FiChevronDown } from "react-icons/fi";
 // import { motion, useScroll } from "framer-motion";
 
 const Bills = () => {
@@ -11,9 +11,8 @@ const Bills = () => {
   const [allBills, setAllBills] = useState([]); // original bills
   const [loading, setLoading] = useState(true);
   const [inputLoad, setInputLoad] = useState(false);
-  const searchRef = useRef();
-  const navigate = useNavigate();
-  // const { scrollYProgress } = useScroll();
+  // const searchRef = useRef();
+  const navigate = useNavigate(); 
 
   // Fetch data only once
   useEffect(() => {
@@ -25,19 +24,19 @@ const Bills = () => {
   }, []);
 
   // Search handler
-  const searchHandle = () => {
+  const searchHandle = (category) => {
     setInputLoad(true);
 
-    const text = searchRef.current.value;
+    const text = category;
 
-    if (text.length > 0) {
+    if (text == "Select a Category") {
+      setBills(allBills);
+    } else {
       const filtered = allBills.filter((bill) =>
         bill?.category?.toLowerCase().includes(text.toLowerCase())
       );
       setBills(filtered);
-    } else {
-      setBills(allBills);
-    }
+    };
 
     setTimeout(() => {
       setInputLoad(false);
@@ -60,41 +59,26 @@ const Bills = () => {
 
           <div className="w-full border-b h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
-          <div className="w-11/12 mx-auto flex justify-between items-center mt-10">
+          <div className="w-11/12 mx-auto flex flex-wrap gap-3 justify-between items-center mt-10">
             <h3 className="text-xl font-bold text-white/30">
               Totale Bills{" "}
               <span className="text-amber-300/60">({bills.length})</span> Founts
             </h3>
 
-            <label className="input rounded-xl bg-white/5 border border-white/20 text-white outline-none">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
+            <div className="col-span-1 flex flex-col">
+              <div className="relative">
+                <select
+                  onChange={(e) => searchHandle(e.target.value)}
+                  className="select select-bordered w-full appearance-none input rounded-xl bg-white/5 border border-white/20 outline-none text-orange-300"
                 >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </g>
-              </svg>
-
-              <input
-                type="search"
-                ref={searchRef}
-                className="grow"
-                placeholder="Search"
-                onChange={searchHandle}
-              />
-
-              <kbd className="kbd kbd-sm bg-white/40 cursor-pointer">⌘</kbd>
-              <kbd className="kbd kbd-sm bg-white/40 cursor-pointer">K</kbd>
-            </label>
+                  <option>Select a Category</option>
+                  {allBills.map((bill) => (
+                    <option>{bill?.category}</option>
+                  ))}
+                </select>
+                <FiChevronDown className="absolute right-3 top-3 text-xl text-gray-500" />
+              </div>
+            </div>
           </div>
 
           <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
@@ -132,19 +116,22 @@ const Bills = () => {
                     </p>
 
                     {/* <!-- From Uiverse.io by gharsh11032000 -->  */}
-                    <button onClick={() => navigate(`/billDitails/${bill?._id}`)} class="animated-button">
+                    <button
+                      onClick={() => navigate(`/billDitails/${bill?._id}`)}
+                      className="animated-button"
+                    >
                       <svg
                         viewBox="0 0 24 24"
-                        class="arr-2"
+                        className="arr-2"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
                       </svg>
-                      <span class="text">See Details</span>
-                      <span class="circle"></span>
+                      <span className="text">See Details</span>
+                      <span className="circle"></span>
                       <svg
                         viewBox="0 0 24 24"
-                        class="arr-1"
+                        className="arr-1"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router";
+import { format } from 'date-fns';
+import { useParams, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Footer from "../../Components/Footer/Footer";
 import { CircleChevronLeft } from "lucide-react";
@@ -10,6 +11,7 @@ const BillDitails = () => {
   const { id } = useParams();
   const [bill, setBill] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentMonth, setCurrentManth] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +39,13 @@ const BillDitails = () => {
     image,
     description,
   } = bill;
-  // const newDate = new Date();
-  // console.log({date, newDate})
+
+  // chekh the month 
+  const myDate = month.split("-")[0];
+  const currentMonthformat = format(new Date(), "MMMM");
+  if(myDate === currentMonthformat) {
+    setCurrentManth(true);
+  }
 
   const handlePyBillBTN = () => {
     navigate(`/pyBill?ammount=${amount}&id=${_id}&title=${category}`);
@@ -58,7 +65,7 @@ const BillDitails = () => {
           <span>Back</span>
         </button>
 
-        {/* Main Card */}
+        {/* card div */}
         <motion.div
           id="bill-area"
           initial={{ opacity: 0, y: 25 }}
@@ -98,6 +105,9 @@ const BillDitails = () => {
                   <strong>Month:</strong> {month}
                 </p>
                 <p>
+                  <strong>Month fns:</strong> {currentMonthformat}
+                </p>
+                <p>
                   <strong>Status:</strong>{" "}
                   <span
                     className={`font-bold ${
@@ -108,7 +118,7 @@ const BillDitails = () => {
                   </span>
                 </p>
                 <p>
-                  <strong>Date:</strong> {new Date(date).toLocaleDateString()}
+                  <strong>Date:</strong> {date}
                 </p>
                 <p>
                   <strong>Location:</strong> {location}
@@ -121,9 +131,31 @@ const BillDitails = () => {
               <p className="text-gray-400 pb-4 leading-relaxed">
                 {description}
               </p>
-              <Link onClick={handlePyBillBTN} className={`premium-btn  w-full`}>
-                Pay Bill
-              </Link>
+              {/* <!-- From Uiverse.io by gharsh11032000 -->  */}
+              <button
+                onClick={handlePyBillBTN}
+                disabled={currentMonth || true}
+                className={`animated-button -mt-2 ${
+                 currentMonth || "opacity-55"
+                }`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="arr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+                <span className="text">Py Bill</span>
+                <span className="circle"></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="arr-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </motion.div>

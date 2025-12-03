@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
-import Loading from "../Laoding/Laoding";
-import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router";
+import Loading from "../Laoding/Laoding"; 
+
 
 const RecentBill = () => {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios("http://localhost:3000/categories/limit").then((res) => {
@@ -54,10 +55,29 @@ const RecentBill = () => {
                 <strong>Date:</strong>{" "}
                 {new Date(bill.date).toLocaleDateString()}
               </p>
-              <div className="mt-4 pl-4 pr-0 py-2 w-36 rounded-2xl bg-gradient-to-r from-[#fbbf24] to-[#fb923c70] shadow-lg  transition-transform duration-300 cursor-pointer flex items-center gap-0">
-                <Link to={`/billDitails/${bill?._id}`}>See Details</Link>
-                <ChevronRight />
-              </div>
+
+              {/* <!-- From Uiverse.io by gharsh11032000 -->  */}
+              <button
+                onClick={() => navigate(`/billDitails/${bill?._id}`)}
+                className="animated-button"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="arr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+                <span className="text">See Details</span>
+                <span className="circle"></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="arr-1"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                </svg>
+              </button>
             </div>
           </div>
         ))}

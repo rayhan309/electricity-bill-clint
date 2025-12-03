@@ -19,8 +19,8 @@ const UserProfile = () => {
         <div className="flex flex-col items-center justify-center">
           <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gradient-to-r from-purple-500 via-indigo-500 to-pink-500 shadow-[0_0_25px_rgba(191,191,191,1)] animate-pulse">
             <img
-              src={user?.avatar || "https://i.pravatar.cc/300"}
-              alt={user?.name || "User Avatar"}
+              src={"https://i.pravatar.cc/300"}
+              alt={"User Avatar"}
               className="w-full h-full object-cover"
             />
           </div>
