@@ -1,8 +1,8 @@
 const Footer = () => {
   return (
-    <footer className="relative bg-gray-900/80 text-white pb-5 pt-10 px-8">
+    <footer className="relative bg-white/10 text-white pb-5 pt-10 mt-10 px-8">
       {/* t bor*/}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-amber-500"></div>
+      <div className="absolute top-0 left-0 w-full h-2 bg-white/10"></div>
 
       <div className="w-11/12 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Log Descr*/}
@@ -72,7 +72,7 @@ const Footer = () => {
       <div className="mt-12 w-full h-px bg-white/10"></div>
 
       {/* Copyright */}
-      <p className="text-center text-gray-400 text-sm mt-6">
+      <p className="text-center text-gray-200 text-sm mt-6">
         © {new Date().getFullYear()} SmartBills — All Rights Reserved.
       </p>
     </footer>

@@ -18,12 +18,9 @@ const BillDitails = () => {
       setLoading(false);
     });
   }, [id]);
-  
 
   if (loading) {
-    return (
-     <Loading />
-    );
+    return <Loading />;
   }
 
   if (!bill) return null;
@@ -40,6 +37,8 @@ const BillDitails = () => {
     image,
     description,
   } = bill;
+  // const newDate = new Date();
+  // console.log({date, newDate})
 
   const handlePyBillBTN = () => {
     navigate(`/pyBill?ammount=${amount}&id=${_id}&title=${category}`);
@@ -49,7 +48,7 @@ const BillDitails = () => {
     <>
       <div className="py-20 px-6 relative overflow-hidden">
         {/* Back btn */}
-  
+
         <button
           onClick={() => navigate(-1)}
           className="mb-10 px-6 py-2 rounded-full mt-6
@@ -119,11 +118,10 @@ const BillDitails = () => {
                 </p>
               </div>
 
-              <p className="text-gray-400 pb-4 leading-relaxed">{description}</p>
-              <Link
-                onClick={handlePyBillBTN}
-                className={`premium-btn  w-full`}
-              >
+              <p className="text-gray-400 pb-4 leading-relaxed">
+                {description}
+              </p>
+              <Link onClick={handlePyBillBTN} className={`premium-btn  w-full`}>
                 Pay Bill
               </Link>
             </div>

@@ -1,18 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mooli&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
-}
+@plugin "daisyui";
 
 body {
   font-family: "Inter", sans-serif;
 }
 body {
-  @apply bg-gradient-to-br from-[#1f1c2c] to-[#928dab]
+  @apply bg-gradient-to-br from-[#1f1c2c] to-[#928dab];
 }
 
 .footer-link {
-  @apply hover:text-orange-400 hover:underline cursor-pointer transition
+  @apply hover:text-orange-400 hover:underline cursor-pointer transition;
 }
 
 a.active {
@@ -71,68 +69,93 @@ a.active {
   transform: scale(1.03);
 }
 
+/* animated btn */
 
-.orb {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  filter: blur(120px);
-  animation: float 12s infinite ease-in-out alternate;
-}
-
-.orb1 {
-  top: -100px;
-  left: -60px;
-  background: radial-gradient(circle, #7f00ff, #e100ff);
-  animation-duration: 14s;
-}
-
-.orb2 {
-  bottom: -80px;
-  right: -60px;
-  background: radial-gradient(circle, #00c6ff, #0072ff);
-  animation-duration: 12s;
-}
-
-.orb3 {
-  top: 40%;
-  left: 50%;
-  background: radial-gradient(circle, #5eff8c, #0affd1);
-  animation-duration: 16s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px) translateX(0px); }
-  100% { transform: translateY(40px) translateX(40px); }
-}
-
-
-/* Page wrapper (stack layout) */
-.page-wrapper {
+/* From Uiverse.io by gharsh11032000 */
+.animated-button {
   position: relative;
-  z-index: 6;
   display: flex;
-  flex-direction: column;
-  gap: 28px;
-  padding: 20px;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 30px;
+  border: 4px solid;
+  border-color: transparent;
+  font-size: 16px;
+  background-color: inherit;
+  border-radius: 100px;
+  font-weight: 600;
+  color: orange;
+  box-shadow: 0 0 0 2px orange;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Each section */
-.section {
-  padding: 24px;
-  border-radius: 18px;
+.animated-button svg {
+  position: absolute;
+  width: 24px;
+  fill: orange;
+  z-index: 9;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Title styling */
-.title {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  margin: 0;
+.animated-button .arr-1 {
+  right: 16px;
 }
 
-.subtitle {
-  opacity: 0.6;
-  font-size: 14px;
+.animated-button .arr-2 {
+  left: -25%;
+}
+
+.animated-button .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background-color: orange;
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button .text {
+  position: relative;
+  z-index: 1;
+  transform: translateX(-12px);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.animated-button:hover {
+  box-shadow: 0 0 0 12px transparent;
+  color: white;
+  border-radius: 12px;
+}
+
+.animated-button:hover .arr-1 {
+  right: -25%;
+}
+
+.animated-button:hover .arr-2 {
+  left: 16px;
+}
+
+.animated-button:hover .text {
+  transform: translateX(12px);
+}
+
+.animated-button:hover svg {
+  fill: white;
+}
+
+.animated-button:active {
+  scale: 0.95;
+  box-shadow: 0 0 0 4px orange;
+}
+
+.animated-button:hover .circle {
+  width: 220px;
+  height: 220px;
+  opacity: 1;
 }

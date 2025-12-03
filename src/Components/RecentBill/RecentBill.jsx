@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Loading from "../Laoding/Laoding";
+import { ChevronRight } from "lucide-react";
 
 const RecentBill = () => {
   const [bills, setBills] = useState([]);
@@ -21,47 +22,46 @@ const RecentBill = () => {
     <Loading />
   ) : (
     <>
-    <div className="w-full border-b h-2 mt-10 opacity-30 border-purple-500 border-dashed shadow-lg shadow-amber-500/40"></div>
-    <h2 className="text-3xl font-bold text-center mb-6 mt-10 text-white/30">
+      <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+      <h2 className="text-3xl text-center mb-6 mt-10 font-bold text-orange-300/80">
         Recent Bills
       </h2>
-    <div className="grid grid-cols-1 w-11/12 mx-auto md:grid-cols-2 lg:grid-cols-3 mb-16 gap-10">
-      {bills.map((bill, index) => (
-        <div
-          key={index}
-          className="relative max-h-66 rounded-xl overflow-hidden p-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-neumorphic hover:shadow-lg hover:scale-105 transform transition-all duration-500"
-          style={{
-            backgroundImage:
-              "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
-          }}
-        >
-          {/* Background Image with glass effect */}
+      <div className="grid grid-cols-1 w-11/12 mx-auto md:grid-cols-2 lg:grid-cols-3 mb-16 gap-10">
+        {bills.map((bill, index) => (
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-50"
-            style={{ backgroundImage: `url(${bill.image})` }}
-          ></div>
+            key={index}
+            className="relative max-h-66 rounded-xl overflow-hidden p-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-neumorphic hover:shadow-[0_0_30px_rgba(191,191,191,1)] hover:scale-105 transform transition-all duration-500"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+            }}
+          >
+            {/* Background Image with glass effect */}
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-50"
+              style={{ backgroundImage: `url(${bill.image})` }}
+            ></div>
 
-          <div className="relative z-10 text-white space-y-4">
-            <h2 className="text-xl font-bold">{bill.title}</h2>
-            <p className="text-sm text-white/80">
-              <strong>Category:</strong> {bill.category}
-            </p>
-            <p className="text-sm text-white/80">
-              <strong>Location:</strong> {bill.location}
-            </p>
-            <p className="text-sm text-white/80">
-              <strong>Date:</strong> {new Date(bill.date).toLocaleDateString()}
-            </p>
-            <Link
-              to={`/billDitails/${bill?._id}`}
-              className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
-            >
-              See Details
-            </Link>
+            <div className="relative z-10 text-white space-y-4">
+              <h2 className="text-xl font-bold">{bill.title}</h2>
+              <p className="text-sm text-white/80">
+                <strong>Category:</strong> {bill.category}
+              </p>
+              <p className="text-sm text-white/80">
+                <strong>Location:</strong> {bill.location}
+              </p>
+              <p className="text-sm text-white/80">
+                <strong>Date:</strong>{" "}
+                {new Date(bill.date).toLocaleDateString()}
+              </p>
+              <div className="mt-4 pl-4 pr-0 py-2 w-36 rounded-2xl bg-gradient-to-r from-[#fbbf24] to-[#fb923c70] shadow-lg  transition-transform duration-300 cursor-pointer flex items-center gap-0">
+                <Link to={`/billDitails/${bill?._id}`}>See Details</Link>
+                <ChevronRight />
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
   );
 };

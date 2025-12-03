@@ -1,15 +1,19 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Footer from "../../Components/Footer/Footer";
 import Loading from "../../Components/Laoding/Laoding";
+import { ChevronRight } from "lucide-react";
+// import { motion, useScroll } from "framer-motion";
 
 const Bills = () => {
-  const [bills, setBills] = useState([]);          // filtered bills
-  const [allBills, setAllBills] = useState([]);    // original bills
-  const [loading, setLoading] = useState(true); 
+  const [bills, setBills] = useState([]); // filtered bills
+  const [allBills, setAllBills] = useState([]); // original bills
+  const [loading, setLoading] = useState(true);
   const [inputLoad, setInputLoad] = useState(false);
   const searchRef = useRef();
+  const navigate = useNavigate();
+  // const { scrollYProgress } = useScroll();
 
   // Fetch data only once
   useEffect(() => {
@@ -45,7 +49,7 @@ const Bills = () => {
       {loading ? (
         <Loading />
       ) : (
-        <>
+        <div>
           <div className="flex justify-center pt-26 items-center gap-5">
             <h2 className="text-3xl font-bold text-orange-300/80">All Bills</h2>
 
@@ -54,17 +58,15 @@ const Bills = () => {
             </div>
           </div>
 
-          <div className="w-full border-b h-2 mt-5 opacity-30 border-purple-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+          <div className="w-full border-b h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
-          <div className="w-11/12 mx-auto flex justify-between items-center mt-10 mb-6">
+          <div className="w-11/12 mx-auto flex justify-between items-center mt-10">
             <h3 className="text-xl font-bold text-white/30">
               Totale Bills{" "}
               <span className="text-amber-300/60">({bills.length})</span> Founts
             </h3>
 
-            <label
-              className="input rounded-xl bg-white/5 border border-white/20 text-white outline-none"
-            >
+            <label className="input rounded-xl bg-white/5 border border-white/20 text-white outline-none">
               <svg
                 className="h-[1em] opacity-50"
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,6 +97,8 @@ const Bills = () => {
             </label>
           </div>
 
+          <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+
           {inputLoad ? (
             <Loading />
           ) : (
@@ -102,14 +106,15 @@ const Bills = () => {
               {bills.map((bill, index) => (
                 <div
                   key={index}
-                  className="relative max-h-66 rounded-xl overflow-hidden p-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-neumorphic hover:shadow-lg hover:scale-105 transform transition-all duration-500"
+                  data-aos="fade-left"
+                  className="relative max-h-66 rounded-xl overflow-hidden p-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-neumorphic hover:shadow-[0_0_30px_rgba(191,191,191,1)] hover:scale-105 transform transition-all duration-500"
                   style={{
                     backgroundImage:
                       "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
                   }}
                 >
                   <div
-                    className="absolute inset-0 bg-cover bg-center opacity-50"
+                    className="absolute inset-0 bg-cover bg-center opacity-70"
                     style={{ backgroundImage: `url(${bill.image})` }}
                   ></div>
 
@@ -126,18 +131,31 @@ const Bills = () => {
                       {new Date(bill.date).toLocaleDateString()}
                     </p>
 
-                    <Link
-                      to={`/billDitails/${bill?._id}`}
-                      className="mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
-                    >
-                      See Details
-                    </Link>
+                    {/* <!-- From Uiverse.io by gharsh11032000 -->  */}
+                    <button onClick={() => navigate(`/billDitails/${bill?._id}`)} class="animated-button">
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="arr-2"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                      </svg>
+                      <span class="text">See Details</span>
+                      <span class="circle"></span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="arr-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </>
+        </div>
       )}
 
       <Footer />
