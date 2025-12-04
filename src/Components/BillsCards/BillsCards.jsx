@@ -65,6 +65,7 @@ import {
   CloudIcon,
   WifiIcon,
 } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
 
 const iconMap = {
   Electricity: <BoltIcon className="h-12 w-12 text-yellow-500" />,
@@ -97,13 +98,26 @@ const BillsCards = () => {
   return (
     <div className="py-10 w-11/12 mx-auto">
       <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
-      <h2 className="text-3xl font-bold text-orange-300/80 text-center mt-6 mb-10">
-        Utility Categories
-      </h2>
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="
+    text-4xl font-extrabold text-center mb-10 mt-12 
+    bg-gradient-to-r from-orange-300 via-yellow-300 to-amber-400 
+    bg-clip-text text-transparent 
+    drop-shadow-[0_4px_15px_rgba(255,181,100,0.45)]
+  "
+      >
+        Utility Bills
+      </motion.h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {mainCategories.map((item) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             key={item._id}
             className={`rounded-3xl shadow-xl text-white p-6 transform transition-all duration-300 hover:scale-105 bg-gradient-to-r ${
               gradientMap[item.category]
@@ -126,7 +140,7 @@ const BillsCards = () => {
               <p className="text-lg font-semibold">$ {item.amount}</p>
               <p className="text-sm mt-1">{item.month}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

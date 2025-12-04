@@ -4,6 +4,9 @@ import { useNavigate } from "react-router";
 import Footer from "../../Components/Footer/Footer";
 import Loading from "../../Components/Laoding/Laoding";
 import { FiChevronDown } from "react-icons/fi";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { motion } from "framer-motion";
 // import { motion, useScroll } from "framer-motion";
 
 const Bills = () => {
@@ -12,10 +15,13 @@ const Bills = () => {
   const [loading, setLoading] = useState(true);
   const [inputLoad, setInputLoad] = useState(false);
   // const searchRef = useRef();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // Fetch data only once
   useEffect(() => {
+
+    window.scrollTo(0, 0);
+
     axios("http://localhost:3000/category").then((res) => {
       setBills(res.data);
       setAllBills(res.data);
@@ -36,12 +42,17 @@ const Bills = () => {
         bill?.category?.toLowerCase().includes(text.toLowerCase())
       );
       setBills(filtered);
-    };
+    }
 
     setTimeout(() => {
       setInputLoad(false);
     }, 700);
   };
+
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+    AOS.refresh();
+  }, []);
 
   return (
     <>
@@ -57,7 +68,7 @@ const Bills = () => {
             </div>
           </div>
 
-          <div className="w-full border-b h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+          <div className="w-11/12 mx-auto border-b h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
           <div className="w-11/12 mx-auto flex flex-wrap gap-3 justify-between items-center mt-10">
             <h3 className="text-xl font-bold text-white/30">
@@ -69,7 +80,7 @@ const Bills = () => {
               <div className="relative">
                 <select
                   onChange={(e) => searchHandle(e.target.value)}
-                  className="select select-bordered w-full appearance-none input rounded-xl bg-white/5 border border-white/20 outline-none text-orange-300"
+                  className="select select-bordered cursor-pointer w-full appearance-none input rounded-xl bg-white/5 border border-white/20 outline-none text-orange-300"
                 >
                   <option>Select a Category</option>
                   {allBills.map((bill) => (
@@ -81,35 +92,54 @@ const Bills = () => {
             </div>
           </div>
 
-          <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+          <div className="w-11/12 mx-auto border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
           {inputLoad ? (
             <Loading />
           ) : (
             <div className="grid grid-cols-1 w-11/12 mx-auto md:grid-cols-2 lg:grid-cols-3 mb-16 gap-10">
               {bills.map((bill, index) => (
-                <div
+                <motion.div
                   key={index}
-                  data-aos="fade-left"
-                  className="relative max-h-66 rounded-xl overflow-hidden p-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-neumorphic hover:shadow-[0_0_30px_rgba(191,191,191,1)] hover:scale-105 transform transition-all duration-500"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
-                  }}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  className="
+      rounded-2xl overflow-hidden 
+      bg-white/10 backdrop-blur-xl 
+      border border-white/20 
+      shadow-[0_8px_30px_rgba(255,255,255,0.15)]
+      transition-all duration-500 
+      group
+    "
                 >
-                  <div
-                    className="absolute inset-0 bg-cover bg-center opacity-70"
-                    style={{ backgroundImage: `url(${bill.image})` }}
-                  ></div>
+                  {/* --- TOP IMAGE WITH HOVER LIFT --- */}
+                  <div className="relative w-full h-56 overflow-hidden p-2">
+                    <motion.img
+                      src={bill.image}
+                      alt="cover"
+                      className="w-full h-full object-cover rounded-t-2xl rounded-b-none"
+                      whileHover={{ y: -12 }} // smooth image lift
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    />
+                    {/* Glass top overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-transparent"></div>
+                  </div>
 
-                  <div className="relative z-10 text-white space-y-4">
-                    <h2 className="text-xl font-bold">{bill.title}</h2>
+                  {/* --- BOTTOM TEXT --- */}
+                  <div className="p-6 space-y-3 text-white relative z-10">
+                    <h2 className="text-xl font-bold drop-shadow-md">
+                      {bill.title}
+                    </h2>
+
                     <p className="text-sm text-white/80">
                       <strong>Category:</strong> {bill.category}
                     </p>
+
                     <p className="text-sm text-white/80">
                       <strong>Location:</strong> {bill.location}
                     </p>
+
                     <p className="text-sm text-white/80">
                       <strong>Date:</strong>{" "}
                       {new Date(bill.date).toLocaleDateString()}
@@ -138,7 +168,7 @@ const Bills = () => {
                       </svg>
                     </button>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           )}

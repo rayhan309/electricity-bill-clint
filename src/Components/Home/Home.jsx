@@ -3,6 +3,7 @@ import Banner from "../Banner/Banner";
 import BillsCards from "../BillsCards/BillsCards";
 import Footer from "../Footer/Footer";
 import RecentBill from "../RecentBill/RecentBill";
+import PremiumDashboard from "../AIInsights/AIInsights";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ const Home = () => {
       <Banner />
       <BillsCards />
       <RecentBill />
+      <PremiumDashboard />
       <Footer />
     </div>
   );

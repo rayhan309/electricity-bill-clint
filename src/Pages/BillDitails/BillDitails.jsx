@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 import { useParams, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import Footer from "../../Components/Footer/Footer";
@@ -10,8 +10,7 @@ import Loading from "../../Components/Laoding/Laoding";
 const BillDitails = () => {
   const { id } = useParams();
   const [bill, setBill] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentMonth, setCurrentManth] = useState(false);
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +19,8 @@ const BillDitails = () => {
       setLoading(false);
     });
   }, [id]);
+
+  // console.log(bill, format(new Date(), "MMMM"));
 
   if (loading) {
     return <Loading />;
@@ -32,20 +33,14 @@ const BillDitails = () => {
     title,
     category,
     amount,
-    month,
-    status,
+    status, 
     date,
     location,
     image,
     description,
   } = bill;
 
-  // chekh the month 
-  const myDate = month.split("-")[0];
-  const currentMonthformat = format(new Date(), "MMMM");
-  if(myDate === currentMonthformat) {
-    setCurrentManth(true);
-  }
+ 
 
   const handlePyBillBTN = () => {
     navigate(`/pyBill?ammount=${amount}&id=${_id}&title=${category}`);
@@ -102,10 +97,7 @@ const BillDitails = () => {
                   <strong>Amount:</strong> ${amount}
                 </p>
                 <p>
-                  <strong>Month:</strong> {month}
-                </p>
-                <p>
-                  <strong>Month fns:</strong> {currentMonthformat}
+                  <strong>Month:</strong> {bill.month.split("-")[0]}
                 </p>
                 <p>
                   <strong>Status:</strong>{" "}
@@ -134,10 +126,8 @@ const BillDitails = () => {
               {/* <!-- From Uiverse.io by gharsh11032000 -->  */}
               <button
                 onClick={handlePyBillBTN}
-                disabled={currentMonth || true}
-                className={`animated-button -mt-2 ${
-                 currentMonth || "opacity-55"
-                }`}
+                disabled={format(new Date(), "MMMM") !== bill.month.split("-")[0] || status === "Paid"}
+                className={`animated-button -mt-2 ${format(new Date(), "MMMM") !== bill.month.split("-")[0] && "opacity-50" || status === "Paid" && "opacity-50"}`}
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -160,6 +150,7 @@ const BillDitails = () => {
           </div>
         </motion.div>
       </div>
+
       <Footer />
     </>
   );

@@ -11,7 +11,8 @@ const Footer = () => {
             <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-orange-500/40">
               <span className="text-2xl font-bold">⚡</span>
             </div>
-            <h2 className="text-2xl font-bold tracking-wide">SmartBills</h2>
+            <h2 className="text-2xl font-bold tracking-wide bg-gradient-to-r from-yellow-400 to-orange-500 
+            bg-clip-text text-transparent">SmartBills</h2>
           </div>
 
           <p className="text-gray-300 leading-relaxed text-sm">

@@ -11,6 +11,7 @@ const HomeLayout = () => {
       setLoading(false);
     }, 1400);
   }, []);
+
   return loading ? (
     <Loading />
   ) : (

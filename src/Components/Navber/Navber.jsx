@@ -2,7 +2,7 @@ import { use } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-import { Menu, X } from "lucide-react";
+import { House, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const Navber = () => {
