@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import Loading from "../../Components/Laoding/Laoding";
 import Swal from "sweetalert2";
@@ -15,13 +15,14 @@ const UserProfile = () => {
   const updateRef = useRef();
   const [number, setNumber] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
 
-    // axios(`http://localhost:3000/users/${user?.email}`).then(res => console.log(res.data));
-  }, [user?.email]);
+  // useEffect(() => {
+  //   // axios(`http://localhost:3000/users/${user?.email}`).then(res => console.log(res.data));
+
+  // }, [user?.email])
 
   // updateHandle
   const updateHandle = (e) => {
@@ -35,8 +36,9 @@ const UserProfile = () => {
     setNumber(phone);
     // console.log("ok done!", {name, phone, photo});
     updateUserProfile(name, photo)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        e.target.reset();
+        updateRef.current.close();
       })
       .catch((err) => {
         console.log(err);

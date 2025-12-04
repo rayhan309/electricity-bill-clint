@@ -1,16 +1,29 @@
-# React + Vite
+# Smart Bill System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This Application is Works, User can easily pay any of their bills.
 
 Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## This Application Live Link
 
-## React Compiler
+https://electricity-bills-225bf.web.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+All-in-One Bill Management – Store, view, and track all your bills in one platform.
+Real-Time Status Tracking – Instantly know which bills are paid, unpaid, or due.
+Smart Analytics – Monthly expenses, category-based spending, trends, and chart analysis.
+Automated Reminders – Get notifications before your due dates.
+Secure Cloud Storage – All your data is encrypted and safely stored.
+AI Insights (Optional) – Get suggestions on where you spend more and how to save better.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Descriptions
+
+Smart Bill System is a modern, fast, and secure bill management platform where all your bills—Internet, Electricity, Gas, Water, Maintenance, and more—can be managed in one place.
+The system organizes your billing history, spending analytics, reminders, and smart insights, helping you keep your monthly expenses more controlled, organized, and transparent.
+
+## Why Smart Bill System?
+
+Because it’s not just a bill management tool—it’s your smart daily assistant.
+It eliminates the hassle of tracking expenses, missing due dates, handling paperwork, and managing multiple bills separately.
+It makes your billing experience faster, smarter, and more organized.
