@@ -56,6 +56,7 @@ const PyBills = () => {
       .then((res) => {
         if (res?.data?.insertedId) {
           e.target.reset();
+          navigate(-1)
           Swal.fire({
             position: "top-end",
             icon: "success",
