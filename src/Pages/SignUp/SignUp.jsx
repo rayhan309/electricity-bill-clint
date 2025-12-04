@@ -11,6 +11,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
+import axios from "axios";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signinWithGoggle } = use(AuthContext);
@@ -57,6 +58,8 @@ const SignUp = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+
+          // updateUserProfile
           updateUserProfile(name, photo)
             .then(() => {
               // Profile updated!
@@ -66,6 +69,19 @@ const SignUp = () => {
               // An error occurred
               // ...
             });
+
+          const newUser = {
+            name,
+            email,
+            photo,
+            password1,
+          };
+
+          // save user mdb
+          axios
+            .post("https://smart-bills-orcin.vercel.app/users", newUser)
+            .then((res) => console.log(res?.data))
+            .catch((re) => console.log(re));
 
           navigate("/");
         }
@@ -92,7 +108,7 @@ const SignUp = () => {
       className="min-h-screen flex items-center justify-center 
     bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] p-6"
     >
-      {/* GLASS CARD */}
+      {/* form card */}
       <div
         className="w-full max-w-md rounded-2xl p-8 shadow-2xl
           backdrop-blur-xl bg-white/10 border border-white/20

@@ -15,7 +15,7 @@ const ErrorPage = () => {
         <motion.img
           src="https://i.ibb.co.com/7tZ3tFXs/pexels-c-125803429-11829002.jpg"
           alt="404"
-          className="mx-auto w-64 mb-6 drop-shadow-2xl"
+          className="mx-auto w-64 mb-6 drop-shadow-2xl opacity-45"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.7 }}

@@ -98,7 +98,7 @@ const MyPyBills = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/pyBills/${id}`).then((res) => {
+        axios.delete(`https://smart-bills-orcin.vercel.app/pyBills/${id}`).then((res) => {
           // console.log(res.data)
           if (res?.data?.deletedCount) {
             const newPyBills = myPyBills.filter((bill) => bill?._id !== id);
@@ -124,11 +124,8 @@ const MyPyBills = () => {
   const handleUpdaye = (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value;
-    // const email = e.target.email.value;
-    const phone = e.target.phone.value;
-    // const id = e.target.id.value;
-    // const amount = e.target.amount.value;
+    const name = e.target.name.value; 
+    const phone = e.target.phone.value; 
     const date = e.target.date.value;
     const address = e.target.address.value;
 
@@ -141,7 +138,7 @@ const MyPyBills = () => {
 
     // console.log(updateId);
     axios
-      .patch(`http://localhost:3000/pyBills/${updateId?._id}`, updatePyBill)
+      .patch(`https://smart-bills-orcin.vercel.app/pyBills/${updateId?._id}`, updatePyBill)
       .then((res) => {
         if (res.data) {
           const fined = myPyBills.find(b => b._id === updateId._id);
@@ -219,32 +216,7 @@ const MyPyBills = () => {
                 Download
               </div>
             </button>
-
-            {/* <div className="container">
-              <label className="label">
-                <input type="checkbox" className="input" />
-                <span className="circle">
-                  <svg
-                    className="icon"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
-                      d="M12 19V5m0 14-4-4m4 4 4-4"
-                    ></path>
-                  </svg>
-                  <div className="square"></div>
-                </span>
-                <p className="title">Download</p>
-                <p className="title">Open</p>
-              </label>
-            </div> */}
+ 
           </div>
 
           {/* Table */}

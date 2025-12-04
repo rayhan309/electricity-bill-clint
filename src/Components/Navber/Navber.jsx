@@ -80,7 +80,7 @@ const Navber = () => {
         </div>
 
         {/* boro dice */}
-        <ul className="hidden lg:flex items-center gap-10 text-orange-300">
+        <ul className="hidden lg:flex items-center gap-5 text-orange-300">
           {links}
         </ul>
 

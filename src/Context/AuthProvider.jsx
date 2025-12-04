@@ -42,8 +42,8 @@ const AuthProvider = ({ children }) => {
   // goglle sign in
   const signinWithGoggle = () => {
     setLoading(true);
-    return signInWithPopup(auth, goggleProvider)
-  }
+    return signInWithPopup(auth, goggleProvider);
+  };
 
   // sign out user
   const signOutUser = () => {
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
   // reset password
   const resetPassword = (email) => {
     setLoading(true);
-    return sendPasswordResetEmail(auth, email)
+    return sendPasswordResetEmail(auth, email);
   };
 
   // current user
