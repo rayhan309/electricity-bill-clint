@@ -97,7 +97,7 @@ const UserProfile = () => {
           {/* User Info Grid */}
           <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <h4 className="text-gray-400">User name</h4>
+              <h4 className="text-gray-400">Your name</h4>
               <p className="text-white font-semibold">
                 {user?.displayName || "N/A"}
               </p>
@@ -109,7 +109,7 @@ const UserProfile = () => {
             </div>
 
             <div>
-              <h4 className="text-gray-400">Address</h4>
+              <h4 className="text-gray-400">Your Address</h4>
               <p className="text-white font-semibold">
                 {user?.address || "Bangladesh"}
               </p>
