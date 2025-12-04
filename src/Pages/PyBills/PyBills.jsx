@@ -8,6 +8,7 @@ import { CircleChevronLeft } from "lucide-react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Loading from "../../Components/Laoding/Laoding";
+import { motion } from "framer-motion";
 
 const PyBills = () => {
   const { user } = useContext(AuthContext);
@@ -56,7 +57,7 @@ const PyBills = () => {
       .then((res) => {
         if (res?.data?.insertedId) {
           e.target.reset();
-          navigate(-1)
+          navigate(-1);
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -78,7 +79,12 @@ const PyBills = () => {
   return (
     <>
       {/* back mama */}
-      <div className="pt-24 pl-7">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="pt-24 pl-7"
+      >
         <Link
           onClick={() => navigate(-1)}
           className=" shadow-xl premium-btn flex items-center gap-3 w-30"
@@ -86,7 +92,7 @@ const PyBills = () => {
           <CircleChevronLeft />
           <span>Back</span>
         </Link>
-      </div>
+      </motion.div>
 
       {loading ? (
         <Loading />
@@ -98,7 +104,10 @@ const PyBills = () => {
           <div className="absolute top-10 left-10 w-36 h-36 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 opacity-40 animate-pulse blur-3xl"></div>
           <div className="absolute bottom-10 right-20 w-48 h-48 rounded-full bg-gradient-to-r from-amber-500 to-red-300 opacity-30 animate-pulse blur-3xl"></div>
 
-          <form
+          <motion.form
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
             onSubmit={handleSubmit}
             className="w-full max-w-3xl backdrop-blur-xl border-10 border-white/10 shadow-[0_0_50px_rgba(191,191,191,1)] rounded-3xl p-6 md:p-10 mx-3 grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10"
           >
@@ -233,7 +242,7 @@ const PyBills = () => {
             >
               Pay Bill
             </button>
-          </form>
+          </motion.form>
         </div>
       )}
       <Footer />

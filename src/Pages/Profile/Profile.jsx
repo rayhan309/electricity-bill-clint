@@ -4,6 +4,8 @@ import Loading from "../../Components/Laoding/Laoding";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { Image, Phone, User } from "lucide-react";
+import { motion } from "framer-motion";
+
 // import axios from "axios";
 
 const UserProfile = () => {
@@ -14,15 +16,12 @@ const UserProfile = () => {
   const [number, setNumber] = useState("");
 
   useEffect(() => {
-
     setTimeout(() => {
       setLoading(false);
     }, 1000);
 
     // axios(`http://localhost:3000/users/${user?.email}`).then(res => console.log(res.data));
-
   }, [user?.email]);
-  
 
   // updateHandle
   const updateHandle = (e) => {
@@ -33,13 +32,15 @@ const UserProfile = () => {
     const photo = form.photo.value;
     const phone = form.phone.value;
 
-    setNumber(phone)
+    setNumber(phone);
     // console.log("ok done!", {name, phone, photo});
-    updateUserProfile(name, photo).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    });
+    updateUserProfile(name, photo)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // LogOut
@@ -67,7 +68,12 @@ const UserProfile = () => {
     <Loading />
   ) : (
     <>
-      <div className="min-h-screen relative flex items-center justify-center px-4 py-20 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="min-h-screen relative flex items-center justify-center px-4 py-20 overflow-hidden"
+      >
         <div className="relative z-10 w-full max-w-4xl rounded-3xl shadow-[0_0_50px_rgba(191,191,191,1)] p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Avatar */}
           <div className="flex flex-col items-center justify-center">
@@ -128,7 +134,7 @@ const UserProfile = () => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Update Modal */}
       <dialog ref={updateRef} className="modal modal-bottom sm:modal-middle">

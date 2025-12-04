@@ -19,6 +19,7 @@ import {
   Trash,
   User,
 } from "lucide-react";
+import { Fade } from "react-awesome-reveal";
 // import { saveAs } from "file-saver";
 
 const MyPyBills = () => {
@@ -98,18 +99,20 @@ const MyPyBills = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`https://smart-bills-orcin.vercel.app/pyBills/${id}`).then((res) => {
-          // console.log(res.data)
-          if (res?.data?.deletedCount) {
-            const newPyBills = myPyBills.filter((bill) => bill?._id !== id);
-            setMyPyBills(newPyBills);
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
-          }
-        });
+        axios
+          .delete(`https://smart-bills-orcin.vercel.app/pyBills/${id}`)
+          .then((res) => {
+            // console.log(res.data)
+            if (res?.data?.deletedCount) {
+              const newPyBills = myPyBills.filter((bill) => bill?._id !== id);
+              setMyPyBills(newPyBills);
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+          });
       }
     });
   };
@@ -124,8 +127,8 @@ const MyPyBills = () => {
   const handleUpdaye = (e) => {
     e.preventDefault();
 
-    const name = e.target.name.value; 
-    const phone = e.target.phone.value; 
+    const name = e.target.name.value;
+    const phone = e.target.phone.value;
     const date = e.target.date.value;
     const address = e.target.address.value;
 
@@ -138,13 +141,16 @@ const MyPyBills = () => {
 
     // console.log(updateId);
     axios
-      .patch(`https://smart-bills-orcin.vercel.app/pyBills/${updateId?._id}`, updatePyBill)
+      .patch(
+        `https://smart-bills-orcin.vercel.app/pyBills/${updateId?._id}`,
+        updatePyBill
+      )
       .then((res) => {
         if (res.data) {
-          const fined = myPyBills.find(b => b._id === updateId._id);
-          const filtered = myPyBills.filter(b => b._id !== updateId._id)
-          const uiNew = {...fined, name, phone, date, address}
-          const newArr = [uiNew, ...filtered]
+          const fined = myPyBills.find((b) => b._id === updateId._id);
+          const filtered = myPyBills.filter((b) => b._id !== updateId._id);
+          const uiNew = { ...fined, name, phone, date, address };
+          const newArr = [uiNew, ...filtered];
           // console.log({newArr});
           setMyPyBills(newArr);
           deleteRef.current.close();
@@ -165,13 +171,20 @@ const MyPyBills = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="min-h-[calc(100vh-285px)] pt-28 px-6">
-          <h1 className="text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 drop-shadow-xl">
-            My Paid Bills
-          </h1>
+        <div className="min-h-[calc(100vh-285px)] w-11/12 mx-auto pt-28 px-2">
+          <Fade triggerOnce>
+            <h1 className="text-center text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 drop-shadow-xl">
+              My Paid Bills
+            </h1>
+          </Fade>
 
           {/* Total + Download */}
-          <div className="flex flex-col md:flex-row items-center justify-between mt-6 mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col md:flex-row items-center justify-between mt-6 mb-4"
+          >
             <div className="text-gray-200 text-sm md:text-base font-medium space-y-1">
               <p>Total Bill Paid: {myPyBills.length}</p>
               <p>Total Amount: ${totalAmount.toLocaleString()}</p>
@@ -181,7 +194,9 @@ const MyPyBills = () => {
             <button
               onClick={handleDownloadPDF}
               disabled={myPyBills.length === 0}
-              className={`${myPyBills.length === 0 && "opacity-70 cursor-not-allowed"} cursor-pointer group relative flex gap-1.5 px-6 py-3  bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 bg-opacity-40 text-[#f1f1f1] rounded-3xl hover:bg-opacity-20 transition font-semibold shadow-md`}
+              className={`${
+                myPyBills.length === 0 && "opacity-70 cursor-not-allowed"
+              } cursor-pointer group relative flex gap-1.5 px-6 py-3  bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 bg-opacity-40 text-[#f1f1f1] rounded-3xl hover:bg-opacity-20 transition font-semibold shadow-md`}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -212,15 +227,30 @@ const MyPyBills = () => {
                 </g>
               </svg>
               Download PDF
-              <div className={`${myPyBills.length === 0 && "hidden"} absolute opacity-0 -bottom-full rounded-md py-2 px-2 bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 bg-opacity-70 text-white left-1/2 -translate-x-1/2 group-hover:opacity-100 transition-opacity shadow-lg z-50`}>
+              <div
+                className={`${
+                  myPyBills.length === 0 && "hidden"
+                } absolute opacity-0 -bottom-full rounded-md py-2 px-2 bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 bg-opacity-70 text-white left-1/2 -translate-x-1/2 group-hover:opacity-100 transition-opacity shadow-lg z-50`}
+              >
                 Download
               </div>
             </button>
- 
-          </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mx-auto border-b mb-5 h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"
+          ></motion.div>
 
           {/* Table */}
-          <div className="overflow-x-auto rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="overflow-x-auto rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10 shadow-xl"
+          >
             <table className="min-w-full text-sm text-gray-200">
               <thead>
                 <tr className="text-left bg-white/10 border-b border-white/10">
@@ -284,7 +314,7 @@ const MyPyBills = () => {
                 ))}
               </tbody>
             </table>
-          </div>
+          </motion.div>
 
           {/* Update Modal */}
           <dialog

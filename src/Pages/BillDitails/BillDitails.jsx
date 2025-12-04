@@ -51,14 +51,17 @@ const BillDitails = () => {
       <div className="py-20 px-6 relative overflow-hidden">
         {/* Back btn */}
 
-        <button
+        <motion.button
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
           onClick={() => navigate(-1)}
           className="mb-10 px-6 py-2 rounded-full mt-6
           shadow-xl premium-btn flex items-center gap-3 w-30"
         >
           <CircleChevronLeft />
           <span>Back</span>
-        </button>
+        </motion.button>
 
         {/* card div */}
         <motion.div

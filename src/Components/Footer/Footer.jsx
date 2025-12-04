@@ -1,6 +1,13 @@
+import { motion } from "framer-motion";
+
 const Footer = () => {
   return (
-    <footer className="relative bg-white/10 text-white pb-5 pt-10 mt-10 px-8">
+    <motion.footer
+       initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      className="relative bg-white/10 text-white pb-5 pt-10 mt-10 px-8"
+    >
       {/* t bor*/}
       <div className="absolute top-0 left-0 w-full h-2 bg-white/10"></div>
 
@@ -11,8 +18,12 @@ const Footer = () => {
             <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-orange-500/40">
               <span className="text-2xl font-bold">⚡</span>
             </div>
-            <h2 className="text-2xl font-bold tracking-wide bg-gradient-to-r from-yellow-400 to-orange-500 
-            bg-clip-text text-transparent">SmartBills</h2>
+            <h2
+              className="text-2xl font-bold tracking-wide bg-gradient-to-r from-yellow-400 to-orange-500 
+            bg-clip-text text-transparent"
+            >
+              SmartBills
+            </h2>
           </div>
 
           <p className="text-gray-300 leading-relaxed text-sm">
@@ -23,9 +34,7 @@ const Footer = () => {
 
         {/* Useful Links */}
         <div>
-          <h3 className="text-lg font-semibold mb-4 text-orange-300">
-            Links
-          </h3>
+          <h3 className="text-lg font-semibold mb-4 text-orange-300">Links</h3>
           <ul className="space-y-2 text-gray-300 text-sm">
             <li className="footer-link">Dashboard</li>
             <li className="footer-link">My Bills</li>
@@ -76,7 +85,7 @@ const Footer = () => {
       <p className="text-center text-gray-200 text-sm mt-6">
         © {new Date().getFullYear()} SmartBills — All Rights Reserved.
       </p>
-    </footer>
+    </motion.footer>
   );
 };
 

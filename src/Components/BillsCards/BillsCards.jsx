@@ -66,6 +66,7 @@ import {
   WifiIcon,
 } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
+import { Fade } from "react-awesome-reveal";
 
 const iconMap = {
   Electricity: <BoltIcon className="h-12 w-12 text-yellow-500" />,
@@ -87,7 +88,7 @@ const BillsCards = () => {
   useEffect(() => {
     axios("https://smart-bills-orcin.vercel.app/category").then((res) => {
       setBills(res.data);
-    })
+    });
   }, []);
 
   // Filter only 4 categories we need
@@ -114,33 +115,34 @@ const BillsCards = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {mainCategories.map((item) => (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            key={item._id}
-            className={`rounded-3xl shadow-xl text-white p-6 transform transition-all duration-300 hover:scale-105 bg-gradient-to-r ${
-              gradientMap[item.category]
-            }`}
-          >
-            <div className="flex justify-between items-center mb-4">
-              {iconMap[item.category]}
-              <span className="text-sm bg-white/30 px-3 py-1 rounded-full backdrop-blur-sm">
-                {item.status}
-              </span>
-            </div>
+          <Fade key={item._id} triggerOnce>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className={`rounded-3xl shadow-xl text-white p-6 transform transition-all duration-300 hover:scale-105 bg-gradient-to-r ${
+                gradientMap[item.category]
+              }`}
+            >
+              <div className="flex justify-between items-center mb-4">
+                {iconMap[item.category]}
+                <span className="text-sm bg-white/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                  {item.status}
+                </span>
+              </div>
 
-            <h3 className="text-xl font-bold mb-2">{item.category}</h3>
+              <h3 className="text-xl font-bold mb-2">{item.category}</h3>
 
-            <p className="text-sm opacity-90 mb-4">
-              {item.description?.slice(0, 80)}...
-            </p>
+              <p className="text-sm opacity-90 mb-4">
+                {item.description?.slice(0, 80)}...
+              </p>
 
-            <div className="mt-4">
-              <p className="text-lg font-semibold">$ {item.amount}</p>
-              <p className="text-sm mt-1">{item.month}</p>
-            </div>
-          </motion.div>
+              <div className="mt-4">
+                <p className="text-lg font-semibold">$ {item.amount}</p>
+                <p className="text-sm mt-1">{item.month}</p>
+              </div>
+            </motion.div>
+          </Fade>
         ))}
       </div>
     </div>

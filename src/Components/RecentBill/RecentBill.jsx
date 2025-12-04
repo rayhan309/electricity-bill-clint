@@ -10,7 +10,7 @@ const RecentBill = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios("http://localhost:3000/categories/limit").then((res) => {
+    axios("https://smart-bills-orcin.vercel.app/categories/limit").then((res) => {
       setBills(res.data);
     });
 
@@ -42,6 +42,9 @@ const RecentBill = () => {
         {bills.map((bill, index) => (
           <motion.div
             key={index}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onHoverStart={() => console.log("hover started!")}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

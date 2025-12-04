@@ -6,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Fade } from "react-awesome-reveal";
 
 export default function Banner() {
   const [slides, setSlides] = useState([]);
@@ -17,6 +18,7 @@ export default function Banner() {
   }, []);
 
   return (
+    <Fade triggerOnce>
     <div className="pt-24 w-11/12 mx-auto">
       {slides.length > 0 && (
         <Swiper
@@ -56,5 +58,6 @@ export default function Banner() {
         </Swiper>
       )}
     </div>
+    </Fade>
   );
 }

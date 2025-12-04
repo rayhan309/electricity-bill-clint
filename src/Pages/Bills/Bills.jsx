@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../../Components/Footer/Footer";
 import Loading from "../../Components/Laoding/Laoding";
@@ -7,6 +7,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { Fade } from "react-awesome-reveal";
 // import { motion, useScroll } from "framer-motion";
 
 const Bills = () => {
@@ -19,7 +20,6 @@ const Bills = () => {
 
   // Fetch data only once
   useEffect(() => {
-
     window.scrollTo(0, 0);
 
     axios("https://smart-bills-orcin.vercel.app/category").then((res) => {
@@ -60,16 +60,21 @@ const Bills = () => {
         <Loading />
       ) : (
         <div>
-          <div className="flex justify-center pt-26 items-center gap-5">
-            <h2 className="text-3xl font-bold text-orange-300/80">All Bills</h2>
+          <Fade triggerOnce>
+            <div className="flex justify-center pt-26 items-center gap-5">
+              <h2 className="text-3xl font-bold text-orange-300/80">
+                All Bills
+              </h2>
 
-            <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400/80 to-yellow-500/80 flex items-center justify-center shadow-lg shadow-orange-500/40">
-              <span className="text-2xl font-bold">⚡</span>
+              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-orange-400/80 to-yellow-500/80 flex items-center justify-center shadow-lg shadow-orange-500/40">
+                <span className="text-2xl font-bold">⚡</span>
+              </div>
             </div>
-          </div>
+          </Fade>
 
           <div className="w-11/12 mx-auto border-b h-2 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
+          <Fade triggerOnce>
           <div className="w-11/12 mx-auto flex flex-wrap gap-3 justify-between items-center mt-10">
             <h3 className="text-xl font-bold text-white/30">
               Totale Bills{" "}
@@ -91,8 +96,10 @@ const Bills = () => {
               </div>
             </div>
           </div>
+          </Fade>
 
-          <div className="w-11/12 mx-auto border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
+{/*  */}
+          <div className="w-11/12 mx-auto border-b h-2 mb-10 mt-7 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
 
           {inputLoad ? (
             <Loading />
@@ -101,6 +108,9 @@ const Bills = () => {
               {bills.map((bill, index) => (
                 <motion.div
                   key={index}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onHoverStart={() => console.log("hover started!")}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
