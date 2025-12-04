@@ -2,7 +2,7 @@ import { use } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-import { House, Menu, X, ChevronDown } from "lucide-react";
+import { House, Menu, X, ChevronDown, ReceiptText,  User, File } from "lucide-react";
 import { useState } from "react";
 
 const Navber = () => {
@@ -14,12 +14,14 @@ const Navber = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"} className="premium-link">
+        <NavLink to={"/"} className="premium-link flex items-center gap-2">
+        <House width={20} />
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink to={"/bills"} className="premium-link">
+        <NavLink to={"/bills"} className="premium-link  flex items-center gap-2">
+        <ReceiptText width={20} />
           Bills
         </NavLink>
       </li>
@@ -27,13 +29,15 @@ const Navber = () => {
       {user && (
         <>
           <li>
-            <NavLink to={"/myPyBills"} className="premium-link">
+            <NavLink to={"/myPyBills"} className="premium-link flex items-center gap-2">
+            <File width={20} />
               My Pay Bills
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/userProfile"} className="premium-link">
-              My Profile
+            <NavLink to={"/userProfile"} className="premium-link flex items-center gap-2">
+            <User width={20} />
+              Profile
             </NavLink>
           </li>
         </>

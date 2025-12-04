@@ -67,6 +67,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import { Fade } from "react-awesome-reveal";
+import { Captions } from "lucide-react";
 
 const iconMap = {
   Electricity: <BoltIcon className="h-12 w-12 text-yellow-500" />,
@@ -99,19 +100,27 @@ const BillsCards = () => {
   return (
     <div className="py-10 w-11/12 mx-auto">
       <div className="w-full border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
-      <motion.h2
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="
-    text-4xl font-extrabold text-center mb-10 mt-12 
+    flex justify-center items-center gap-4 mb-10 mt-12 
+  "
+      >
+        <Captions size={40} className="text-orange-300" />
+        <h2
+          className="
+    text-4xl font-extrabold
     bg-gradient-to-r from-orange-300 via-yellow-300 to-amber-400 
     bg-clip-text text-transparent 
     drop-shadow-[0_4px_15px_rgba(255,181,100,0.45)]
   "
-      >
-        Utility Bills
-      </motion.h2>
+        >
+          Utility Bills
+        </h2>
+      </motion.div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {mainCategories.map((item) => (

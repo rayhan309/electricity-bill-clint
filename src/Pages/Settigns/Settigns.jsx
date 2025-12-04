@@ -20,7 +20,7 @@ const SettingsDesign = () => {
     
           {/* lakjer divec */}
         <div
-          className={`fixed top-0 left-0 h-full p-4 pt-24 transition-all duration-300 z-40 
+          className={`fixed top-0 left-0 h-full p-4 pt-24 transition-all bg-white/30 duration-300 z-40 
           overflow-hidden ${sidebarOpen ? "w-64" : "w-20"}`}
         >
           <button

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Loading from "../Laoding/Laoding";
 import { motion } from "framer-motion";
+import { FileArchive } from "lucide-react";
 
 const RecentBill = () => {
   const [bills, setBills] = useState([]);
@@ -24,19 +25,23 @@ const RecentBill = () => {
   ) : (
     <>
       <div className="w-11/12 mx-auto border-b h-2 mb-5 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
-      <motion.h2
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="
-    text-4xl font-extrabold text-center mb-10 mt-12 
-    bg-gradient-to-r from-orange-300 via-yellow-300 to-gray-400 
-    bg-clip-text text-transparent 
-    drop-shadow-[0_4px_15px_rgba(255,181,100,0.45)]
+    mb-10 mt-12 flex justify-center input-accent gap-4
   "
       >
+        <FileArchive size={40} className="text-orange-300" />
+        <h2 className="text-4xl font-extrabold
+    bg-gradient-to-r from-orange-300 via-yellow-300 to-gray-400 
+    bg-clip-text text-transparent 
+    drop-shadow-[0_4px_15px_rgba(255,181,100,0.45)]">
+
         Recent Bills
-      </motion.h2>
+        </h2>
+      </motion.div>
 
       <div className="grid grid-cols-1 w-11/12 mx-auto md:grid-cols-2 lg:grid-cols-3 mb-16 gap-10">
         {bills.map((bill, index) => (
