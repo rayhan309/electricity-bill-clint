@@ -1,4 +1,4 @@
-# Smart Bill System
+# Smart Bill Management System
 
 This Application is Works, User can easily pay any of their bills.
 
