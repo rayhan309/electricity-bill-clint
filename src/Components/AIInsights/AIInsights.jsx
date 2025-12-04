@@ -18,11 +18,11 @@ const PremiumDashboard = () => {
   const [sampleData, setSampleData] = useState([]);
 
   useEffect(() => {
-    axios("http://localhost:3000/aiMonthly").then((res) =>
+    axios("https://smart-bills-orcin.vercel.app/aiMonthly").then((res) =>
       setInsights(res?.data)
     );
-    axios("http://localhost:3000/analytics").then((res) => {
-      console.log(res?.data);
+    axios("https://smart-bills-orcin.vercel.app/analytics").then((res) => {
+      // console.log(res?.data);
       setSampleData(res?.data);
     });
   }, []);
@@ -38,7 +38,7 @@ const PremiumDashboard = () => {
         className="max-w-6xl mx-auto"
       >
         <div className="mb-7 flex justify-center items-center gap-2">
-          <Calendar className="text-amber-300 text-2xl"/>
+          <Calendar className="text-amber-300 text-2xl" />
           <h2
             className="text-4xl font-extrabold
     bg-gradient-to-r from-orange-300 via-yellow-300 to-amber-400 
@@ -98,8 +98,9 @@ const PremiumDashboard = () => {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto"
+        className="w-11/12 mx-auto"
       >
+        <div className="border-b h-2 mb-7 mt-5 opacity-30 border-amber-500 border-dashed shadow-lg shadow-amber-500/40"></div>
         <div className="flex justify-center mb-8 items-center gap-2 ">
           <img
             className="w-12 rounded-2xl"

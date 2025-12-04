@@ -1,15 +1,16 @@
-import { use, useRef } from "react";
+import { use, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
 import { toast, ToastContainer } from "react-toastify";
-import { Lock, Mail } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 
 const LogIn = () => {
   const { signinUser, signinWithGoggle, resetPassword } = use(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const emailRef = useRef();
+  const [passwordEy, setPasswordEy] = useState(false);
   // console.log(location)
 
   const handleSubmit = (e) => {
@@ -43,12 +44,12 @@ const LogIn = () => {
   const handleSigninWithGoggle = () => {
     signinWithGoggle()
       .then((res) => {
-        if(res.user){
-          if(location?.state) {
-           return navigate(location?.state);
-          };
-          navigate('/');
-        };
+        if (res.user) {
+          if (location?.state) {
+            return navigate(location?.state);
+          }
+          navigate("/");
+        }
       })
       .catch((error) => {
         console.log(error.message);
@@ -60,25 +61,25 @@ const LogIn = () => {
     const email = emailRef.current.value;
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-    if(!email) {
+    if (!email) {
       toast.error("Please type your email");
       return;
-    };
+    }
 
-    if(!emailRegex.test(email)) {
+    if (!emailRegex.test(email)) {
       toast.error("Please valide email");
       return;
-    };
+    }
 
     resetPassword(email)
-    .then(() => {
-      toast.success("Please check your email!")
-    })
-    .catch((error) => {
-      toast.error(error.message)
-    })
+      .then(() => {
+        toast.success("Please check your email!");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
     // console.log(email)
-  }
+  };
   return (
     <div
       className="min-h-screen flex items-center justify-center 
@@ -119,7 +120,7 @@ const LogIn = () => {
           <div className="relative">
             <Lock className="absolute left-3 top-3 text-orange-300" size={20} />
             <input
-              type="password"
+              type={passwordEy ? "text" : "password"}
               name="password"
               placeholder="Your password"
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 
@@ -129,9 +130,19 @@ const LogIn = () => {
               required
             />
 
-            <div
-            onClick={passwordResetHandle}
-             className="text-right mt-1">
+            {passwordEy ? (
+              <EyeOff
+                className="absolute top-3.5 right-3 cursor-pointer text-orange-300"
+                onClick={() => setPasswordEy(false)}
+              />
+            ) : (
+              <Eye
+                onClick={() => setPasswordEy(true)}
+                className="absolute top-3.5 right-3 cursor-pointer text-orange-300"
+              />
+            )}
+
+            <div onClick={passwordResetHandle} className="text-right mt-1">
               <a href="#" className="text-yellow-300 text-sm hover:underline">
                 Forgot Password?
               </a>

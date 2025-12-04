@@ -85,9 +85,9 @@ const BillsCards = () => {
   const [bills, setBills] = useState([]);
 
   useEffect(() => {
-    axios("http://localhost:3000/category").then((res) => {
+    axios("https://smart-bills-orcin.vercel.app/category").then((res) => {
       setBills(res.data);
-    });
+    })
   }, []);
 
   // Filter only 4 categories we need

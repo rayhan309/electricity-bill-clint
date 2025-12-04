@@ -21,7 +21,7 @@ const MyPyBills = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    axios(`http://localhost:3000/pyBills?email=${user.email}`).then((res) => {
+    axios(`https://smart-bills-orcin.vercel.app/pyBills?email=${user.email}`).then((res) => {
       if (res.data) {
         setMyPyBills(res.data);
         const total = res.data.reduce(

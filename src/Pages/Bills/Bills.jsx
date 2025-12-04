@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router";
 import Footer from "../../Components/Footer/Footer";
 import Loading from "../../Components/Laoding/Laoding";
@@ -7,6 +6,7 @@ import { FiChevronDown } from "react-icons/fi";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
+import axios from "axios";
 // import { motion, useScroll } from "framer-motion";
 
 const Bills = () => {
@@ -22,7 +22,7 @@ const Bills = () => {
 
     window.scrollTo(0, 0);
 
-    axios("http://localhost:3000/category").then((res) => {
+    axios("https://smart-bills-orcin.vercel.app/category").then((res) => {
       setBills(res.data);
       setAllBills(res.data);
       setLoading(false);

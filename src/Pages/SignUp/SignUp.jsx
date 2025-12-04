@@ -1,13 +1,21 @@
-import { use } from "react";
+import { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../Context/AuthContext";
 import Swal from "sweetalert2";
-import { User, Mail, Lock, Image as ImageIcon } from "lucide-react";
+import {
+  User,
+  Mail,
+  Lock,
+  Image as ImageIcon,
+  Eye,
+  EyeOff,
+} from "lucide-react";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signinWithGoggle } = use(AuthContext);
   const navigate = useNavigate();
+  const [passwordEy, setPasswordEy] = useState(false);
 
   // sign Up with email & password
   const handleSubmit = (e) => {
@@ -20,15 +28,15 @@ const SignUp = () => {
     const password1 = form.password1.value;
     const password2 = form.password2.value;
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z]).{8,}$/;
 
     if (!emailRegex.test(email)) {
       toast.error("Please valide email");
       return;
     }
 
-    if(!passwordRegex.test(password1)) {
-      toast.error("Please 8 charecter & 1 lettur, number");
+    if (!passwordRegex.test(password1)) {
+      toast.error("Please 8 charecter & 1 uppercase, 1 lowercase");
       return;
     }
 
@@ -69,15 +77,15 @@ const SignUp = () => {
   // goggleLoginHandle
   const goggleLoginHandle = () => {
     signinWithGoggle()
-    .then((res) => {
-        if(res.user){
-          navigate('/')
-        };
+      .then((res) => {
+        if (res.user) {
+          navigate("/");
+        }
       })
       .catch((error) => {
         toast.error(error.message);
       });
-  }
+  };
 
   return (
     <div
@@ -150,7 +158,7 @@ const SignUp = () => {
           <div className="relative">
             <Lock className="absolute left-3 top-3 text-orange-300" size={20} />
             <input
-              type="password"
+              type={passwordEy ? "text" : "password"}
               name="password1"
               placeholder="Create a password"
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5
@@ -158,13 +166,24 @@ const SignUp = () => {
               focus:ring-2 focus:ring-yellow-400 transition-all"
               required
             />
+            {passwordEy ? (
+              <EyeOff
+                className="absolute top-3.5 right-3 cursor-pointer text-orange-300"
+                onClick={() => setPasswordEy(false)}
+              />
+            ) : (
+              <Eye
+                onClick={() => setPasswordEy(true)}
+                className="absolute top-3.5 right-3 cursor-pointer text-orange-300"
+              />
+            )}
           </div>
 
           {/* CONFIRM PASSWORD */}
           <div className="relative">
             <Lock className="absolute left-3 top-3 text-orange-300" size={20} />
             <input
-              type="password"
+              type={passwordEy ? "text" : "password"}
               name="password2"
               placeholder="Repeat password"
               className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5
@@ -194,7 +213,7 @@ const SignUp = () => {
 
           {/* Google Login */}
           <button
-          onClick={goggleLoginHandle}
+            onClick={goggleLoginHandle}
             type="button"
             className="w-full py-3 rounded-xl bg-white/20 border border-white/30
             text-white flex items-center justify-center gap-3

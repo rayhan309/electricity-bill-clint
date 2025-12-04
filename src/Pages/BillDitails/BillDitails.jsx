@@ -14,7 +14,7 @@ const BillDitails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios(`http://localhost:3000/category/${id}`).then((res) => {
+    axios(`https://smart-bills-orcin.vercel.app/category/${id}`).then((res) => {
       setBill(res.data);
       setLoading(false);
     });

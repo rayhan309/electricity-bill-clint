@@ -43,7 +43,7 @@ const PyBills = () => {
     // console.log({ name, billId, amount, date, phone, address, additionalInfo });
 
     axios
-      .post("http://localhost:3000/pyBills", {
+      .post("https://smart-bills-orcin.vercel.app/pyBills", {
         billId,
         name,
         email: user?.email,

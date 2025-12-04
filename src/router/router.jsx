@@ -9,11 +9,14 @@ import MyPyBills from "../Pages/MyPyBills/MyPyBills";
 import Profile from "../Pages/Profile/Profile";
 import BillDitails from "../Pages/BillDitails/BillDitails";
 import PayBill from "../Pages/PyBills/PyBills";
+import Settings from "../Pages/Settigns/Settigns";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: HomeLayout,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -62,7 +65,11 @@ export const router = createBrowserRouter([
             <PayBill />
           </PrivitePages>
         ),
-      },
+        },
+        {
+          path: '/settigns',
+          element: <Settings />
+        }
     ],
   },
 ]);

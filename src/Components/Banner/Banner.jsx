@@ -11,7 +11,7 @@ export default function Banner() {
   const [slides, setSlides] = useState([]);
 
   useEffect(() => {
-    axios("http://localhost:3000/slides").then((data) => {
+    axios("https://smart-bills-orcin.vercel.app/slides").then((data) => {
       setSlides(data.data);
     });
   }, []);
